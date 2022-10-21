@@ -6,6 +6,7 @@ const categories_get = async (req, res) => {
   let ctgs;
   try {
     ctgs = await prisma.transactionCategory.findMany();
+    console.log(ctgs)
 
     if (ctgs) res.status(200).json({ ctgs });
   } catch {

@@ -29,7 +29,6 @@ const transactions_get = async (req, res) => {
 
     if (transactions) res.status(200).json({ transactions });
     } catch (e) {
-        console.log(e)
     res.status(500).json({ message: "something went wrong" });
     }
 };
@@ -46,7 +45,6 @@ const transaction_delete = async (req, res) => {
 
     res.status(200).send("success");
     } catch (e) {
-    console.log(e);
     res.status(500).json({ message: "Something went wrong" });
     }
 };
@@ -54,7 +52,9 @@ const transaction_delete = async (req, res) => {
 const categories_get = async (req, res) => {
     let ctgs;
     try {
-    ctgs = await prisma.transactionCategory.findMany();
+    ctgs = await prisma.transactionCategory.findFirst().then(result => {
+        console.log(result.name)
+    }).catch(e => console.log(e)) // await prisma.transactionCategory.findMany();
 
     if (ctgs) res.status(200).json({ ctgs });
     } catch {
@@ -91,8 +91,7 @@ router.get("/transactions", transactions_get);
 // walletController.wallet_delete
 // );
 // router.patch("/transactions", walletController.wallet_update);
-
-app.use(`/.netlify/functions/api`, router);
+app.use(`/.netlify/functions`, router);
 
 module.exports = app;
 module.exports.handler = serverless(app);
