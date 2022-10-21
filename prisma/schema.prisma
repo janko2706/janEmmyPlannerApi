@@ -1,0 +1,33 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = "mysql://77do28rq30a9t5vys2z2:pscale_pw_AnG7WTohNibsqbW9YbAB0sPG78X3PFleMTNbwf9uAu0@eu-central.connect.psdb.cloud/janemmyexpences?sslaccept=strict"
+  referentialIntegrity = "prisma"
+}
+
+model Wallet {
+  id                String @id @default(cuid())
+  moneyLeft         Float
+  spent             Float
+  startOfMonthMoney Float
+}
+
+model Transaction {
+  id    String   @id @default(cuid())
+  title String
+  money Float
+  date  DateTime @default(now())
+  info  String?
+}
+
+model TransactionCategory {
+  id            String @id @default(cuid())
+  name          String @unique
+  originalValue Float
+  spent         Float
+  leftInBudget  Float
+}
