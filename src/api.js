@@ -72,7 +72,7 @@ res.json({
 });
 });
 // router.post("/category", categoriesController.categories_post);
-router.get("/categories", categories_get);
+// router.get("/categories", categories_get);
 // router.get("/categories/sum", categoriesController.categories_transaction_sum);
 // router.delete(
 // "/category/delete/:categoryId",
